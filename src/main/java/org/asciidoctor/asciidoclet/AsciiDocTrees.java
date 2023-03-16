@@ -17,6 +17,7 @@ package org.asciidoctor.asciidoclet;
 
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.doctree.DocTree;
+import com.sun.source.doctree.EntityTree;
 import com.sun.source.tree.CatchTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
@@ -145,6 +146,11 @@ class AsciiDocTrees extends DocTrees {
         return docTrees.getElement(path);
     }
 
+    @Override
+    public TypeMirror getType(DocTreePath path) {
+        return getElement(path).asType();
+    }
+
     public List<DocTree> getFirstSentence(List<? extends DocTree> list) {
         return docTrees.getFirstSentence(list);
     }
@@ -163,6 +169,11 @@ class AsciiDocTrees extends DocTrees {
 
     public DocTreeFactory getDocTreeFactory() {
         return docTrees.getDocTreeFactory();
+    }
+
+    @Override
+    public String getCharacters(EntityTree tree) {
+        return tree.toString();
     }
 
     public Tree getTree(Element element) {
